@@ -1,0 +1,10 @@
+{
+  "name": "security-demo",
+  "version": "1.0.0",
+  "description": "Demo for GitHub security features",
+  "dependencies": {
+    "express": "4.16.0",
+    "lodash": "4.17.11",
+    "axios": "0.18.0"
+  }
+}
