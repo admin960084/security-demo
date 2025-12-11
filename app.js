@@ -10,12 +10,16 @@ app.get('/user', (req, res) => {
   res.send('User query executed');
 });
 
-// VULNERABILITY 2: Command Injection
+// BEST: Use execFile with arguments array
 app.get('/ping', (req, res) => {
   const host = req.query.host;
-  // Bad: Unsanitized user input in shell command
-  const { exec } = require('child_process');
-  exec(`ping -c 4 ${host}`, (error, stdout) => {
+  const { execFile } = require('child_process');
+  
+  // execFile doesn't invoke a shell, preventing injection
+  execFile('ping', ['-c', '4', host], (error, stdout) => {
+    if (error) {
+      return res.status(500).send('Error executing ping');
+    }
     res.send(stdout);
   });
 });
